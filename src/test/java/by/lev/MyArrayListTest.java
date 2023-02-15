@@ -1,5 +1,6 @@
 package by.lev;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import parser.XMLParser;
 import parser.XMLTag;
@@ -8,11 +9,44 @@ import utilities.ListADT;
 import utilities.MyArrayList;
 
 import java.lang.reflect.Field;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+import static org.testng.internal.junit.ArrayAsserts.assertArrayEquals;
 
 public class MyArrayListTest {
+
+    @Test
+    public void testMyArrayListGet() {
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+
+        assertEquals(list.get(1), "Two");
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testMyArrayListGetMoreThanIndexValue() {
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.get(3);
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testMyArrayListGetWithNegativeValue() {
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.get(-1);
+    }
+
+
 
     @Test
     public void testMyArrayListMethodClear() {
@@ -33,7 +67,7 @@ public class MyArrayListTest {
         listADT.add("Two");
         listADT.add("Three");
 
-        assertEquals(listADT.size(),3);
+        assertEquals(listADT.size(), 3);
     }
 
     @Test
@@ -44,7 +78,7 @@ public class MyArrayListTest {
         listADT.add("Three");
         listADT.add(0, "One");
 
-        assertEquals(listADT.size(),3);
+        assertEquals(listADT.size(), 3);
     }
 
     @Test
@@ -55,7 +89,7 @@ public class MyArrayListTest {
         listADT.add("Three");
         listADT.add(0, "One");
 
-        assertEquals(listADT.get(0),"One");
+        assertEquals(listADT.get(0), "One");
     }
 
     @Test
@@ -66,17 +100,37 @@ public class MyArrayListTest {
         listADT.add("Three");
         listADT.add(0, "One");
 
-        assertEquals(listADT.size(),3);
+        assertEquals(listADT.size(), 3);
+    }
+
+
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testAddElementToNoExistIndex(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.add(4, "Five");
+    }
+
+    @Test(expectedExceptions = IndexOutOfBoundsException.class)
+    public void testAddElementToNegativeIndex(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.add(-1, "Zero");
     }
 
     @Test
     public void testMyArrayListAddAll() {
-        ListADT<String> listToAdd = new MyArrayList<>();
+        ListADT<String> listToAdd = new MyArrayList<>(3);
         listToAdd.add("Four");
         listToAdd.add("Five");
         listToAdd.add("Six");
 
-        ListADT<String> list = new MyArrayList<>();
+        ListADT<String> list = new MyArrayList<>(3);
         list.add("One");
         list.add("Two");
         list.add("Three");
@@ -91,7 +145,20 @@ public class MyArrayListTest {
         checkList.add("Five");
         checkList.add("Six");
 
-        assertEquals(list.toArray(), checkList.toArray());
+        Assert.assertEquals(list.toArray(), checkList.toArray());
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testMyArrayListAddAllIfOneOfListsIsNull() {
+        ListADT<String> listToAdd = null;
+
+
+        ListADT<String> list = new MyArrayList<>(3);
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+
+        list.addAll(listToAdd);
     }
 
     @Test
@@ -127,6 +194,28 @@ public class MyArrayListTest {
     }
 
     @Test
+    public void testMethodRemoveIfElementIsNull(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.remove(null);
+
+        assertEquals(list.size(), 3);
+    }
+
+    @Test
+    public void testMethodRemoveIfElementIsNotInList(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.remove("Four");
+
+        assertEquals(list.size(), 3);
+    }
+
+    @Test
     public void testSetElement() {
         ListADT<String> list = new MyArrayList<>();
         list.add("Four");
@@ -154,6 +243,39 @@ public class MyArrayListTest {
     }
 
     @Test
+    public void testContainsNull(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+
+        assertFalse(list.contains(null));
+    }
+
+    @Test
+    public void testDoNotContainsElement(){
+        ListADT<String> list = new MyArrayList<>();
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+
+        assertFalse(list.contains("Four"));
+    }
+
+    @Test(expectedExceptions = NullPointerException.class)
+    public void testToArrayWithNullInParameter(){
+        ListADT<String> list = new MyArrayList<>();
+        list.toArray(null);
+    }
+
+    @Test
+    public void testToArrayWithArrayInParameter(){
+        ListADT<String> list = new MyArrayList<>();
+        String[] array = {"One", "Two", "Three"};
+        assertArrayEquals(list.toArray(array), array);
+    }
+
+    @Test
     public void testIterator() {
         ListADT<String> list = new MyArrayList<>();
         list.add("One");
@@ -163,15 +285,22 @@ public class MyArrayListTest {
         ListADT<String> checkList = new MyArrayList<>();
 
         Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             checkList.add(iterator.next());
         }
 
         assertEquals(list.toArray(), checkList.toArray());
     }
 
+    @Test(expectedExceptions = NoSuchElementException.class)
+    public void testIteratorMethodNextIfNextElementDontExist(){
+        ListADT<String> list = new MyArrayList<>();
+        Iterator<String> iterator = list.iterator();
+        iterator.next();
+    }
+
     @Test
-    public void testGetNameFromRoot(){
+    public void testGetNameFromRoot() {
         XMLParser parser = new XMLParser("src/test/xmlfiles/true_simple_file.xml");
         parser.parseDocument();
         String xmlTageName;

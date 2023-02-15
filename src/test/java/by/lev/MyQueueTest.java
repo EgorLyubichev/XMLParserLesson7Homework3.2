@@ -4,6 +4,7 @@ import exceptions.EmptyQueueException;
 import org.testng.annotations.Test;
 import utilities.Iterator;
 import utilities.MyQueue;
+import utilities.QueueADT;
 
 import java.util.NoSuchElementException;
 
@@ -16,33 +17,33 @@ public class MyQueueTest {
 
     @Test
     public void testNewMyQueueIsEmpty() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         assertTrue(queue.isEmpty());
     }
 
     @Test
     public void testNewMyQueueSizeEqualsZero() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         assertEquals(queue.size(), 0);
     }
 
     @Test
     public void testNewMyQueueIsNotEmpty() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         assertFalse(queue.isEmpty());
     }
 
     @Test
     public void testNewMyQueueSizeEqualsOne() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         assertEquals(queue.size(), 1);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void testEnqueueNull() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue(null);
 
     }
@@ -57,7 +58,7 @@ public class MyQueueTest {
 
     @Test
     public void testDequeObject() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
@@ -67,7 +68,7 @@ public class MyQueueTest {
 
     @Test
     public void testDequeOneObjectSizeMinusOne() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
@@ -77,18 +78,18 @@ public class MyQueueTest {
 
     @Test(expectedExceptions = EmptyQueueException.class)
     public void testDequeFromEmptyMyQueue() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.dequeue();
     }
 
     @Test
     public void testQueueAfterDequeueMethodAndEqualsMethod() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
         queue.dequeue();
-        MyQueue<String> expected = new MyQueue<>();
+        QueueADT<String> expected = new MyQueue<>();
         expected.enqueue("Two");
         expected.enqueue("Three");
         assertTrue(queue.equals(expected));
@@ -96,7 +97,7 @@ public class MyQueueTest {
 
     @Test
     public void testPeek() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
@@ -106,13 +107,13 @@ public class MyQueueTest {
 
     @Test(expectedExceptions = EmptyQueueException.class)
     public void testPeekFromEmptyMyQueue() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.peek();
     }
 
     @Test
     public void testDequeueAll() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
@@ -124,19 +125,19 @@ public class MyQueueTest {
 
     @Test(expectedExceptions = NoSuchElementException.class)
     public void testNextElementFromIteratorWhenMyQueueIsEmpty() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         Iterator<String> iterator = queue.iterator();
         iterator.next();
     }
 
     @Test
     public void testNoEqualsMyQueuesBySize() {
-        MyQueue<String> queue1 = new MyQueue<>();
+        QueueADT<String> queue1 = new MyQueue<>();
         queue1.enqueue("One");
         queue1.enqueue("Two");
         queue1.enqueue("Three");
 
-        MyQueue<String> queue2 = new MyQueue<>();
+        QueueADT<String> queue2 = new MyQueue<>();
         queue2.enqueue("One");
         queue2.enqueue("Two");
 
@@ -145,12 +146,12 @@ public class MyQueueTest {
 
     @Test
     public void testNoEqualsMyQueuesByElements() {
-        MyQueue<String> queue1 = new MyQueue<>();
+        QueueADT<String> queue1 = new MyQueue<>();
         queue1.enqueue("One");
         queue1.enqueue("Two");
         queue1.enqueue("Three");
 
-        MyQueue<String> queue2 = new MyQueue<>();
+        QueueADT<String> queue2 = new MyQueue<>();
         queue2.enqueue("One");
         queue2.enqueue("Two");
         queue2.enqueue("Four");
@@ -160,7 +161,7 @@ public class MyQueueTest {
 
     @Test
     public void testToArray() {
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.enqueue("One");
         queue.enqueue("Two");
         queue.enqueue("Three");
@@ -172,7 +173,7 @@ public class MyQueueTest {
 
     @Test (expectedExceptions = NullPointerException.class)
     public void testToArrayWithHolderAsNull(){
-        MyQueue<String> queue = new MyQueue<>();
+        QueueADT<String> queue = new MyQueue<>();
         queue.toArray(null);
     }
 
