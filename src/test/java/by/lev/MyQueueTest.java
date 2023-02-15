@@ -5,13 +5,9 @@ import org.testng.annotations.Test;
 import utilities.Iterator;
 import utilities.MyQueue;
 
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
 
+import static org.testng.AssertJUnit.assertArrayEquals;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
@@ -171,20 +167,18 @@ public class MyQueueTest {
 
         String[] expected = {"One", "Two", "Three"};
 
-        assertTrue(Arrays.equals(queue.toArray(), expected));
+        assertArrayEquals(queue.toArray(), expected);
     }
 
     @Test (expectedExceptions = NullPointerException.class)
     public void testToArrayWithHolderAsNull(){
-        String[] holder = null;
         MyQueue<String> queue = new MyQueue<>();
-        queue.toArray(holder);
+        queue.toArray(null);
     }
 
-    /**
+    /*
      * Проверить работу метода toArray(E[] holder) в полной мере не возможно в данном
      * случае, т.к. метод ссылается на приватное поле elements.
      * */
-
 
 }
