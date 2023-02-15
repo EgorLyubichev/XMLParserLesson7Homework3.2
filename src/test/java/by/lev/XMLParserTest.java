@@ -50,9 +50,8 @@ public class XMLParserTest {
         assertFalse(parser.getErrors().isEmpty());
     }
 
-
-
-
-
+    /*
+    * Для дальнейшего тестирования требуется исправление обнаруженных ошибок
+    * */
 
 }
