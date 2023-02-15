@@ -1,6 +1,7 @@
-package parser;
+package by.lev;
 
 import org.testng.annotations.Test;
+import parser.XMLParser;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;

@@ -1,9 +1,13 @@
 package by.lev;
 
 import org.testng.annotations.Test;
+import parser.XMLParser;
+import parser.XMLTag;
 import utilities.Iterator;
 import utilities.ListADT;
 import utilities.MyArrayList;
+
+import java.lang.reflect.Field;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -164,6 +168,25 @@ public class MyArrayListTest {
         }
 
         assertEquals(list.toArray(), checkList.toArray());
+    }
+
+    @Test
+    public void testGetNameFromRoot(){
+        XMLParser parser = new XMLParser("src/test/xmlfiles/true_simple_file.xml");
+        parser.parseDocument();
+        String xmlTageName;
+
+        try {
+            Field field = parser.getClass().getDeclaredField("root");
+            field.setAccessible(true);
+            XMLTag xmlTag = (XMLTag) field.get(parser);
+
+            xmlTageName = xmlTag.getName();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(xmlTageName, "bookstore");
     }
 
 }
