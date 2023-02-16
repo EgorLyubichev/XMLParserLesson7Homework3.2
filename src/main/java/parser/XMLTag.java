@@ -66,7 +66,7 @@ public class XMLTag {
         this.text = text;
     }
 
-    public class TagProperty {
+    public static class TagProperty {
 
         public TagProperty(String name, String value) {
             this.name = name;
