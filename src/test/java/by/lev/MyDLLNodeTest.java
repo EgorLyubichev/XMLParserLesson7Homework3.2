@@ -1,5 +1,6 @@
 package by.lev;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import utilities.MyDLLNode;
@@ -10,7 +11,7 @@ import static org.testng.AssertJUnit.assertTrue;
 public class MyDLLNodeTest {
 
     @Test
-    public void testConstructorWithAllParameters(){
+    public void testConstructorWithAllParameters() {
         MyDLLNode<String> node = new MyDLLNode<>("Node",
                 new MyDLLNode<>("Prev"),
                 new MyDLLNode<>("Next"));
@@ -24,7 +25,7 @@ public class MyDLLNodeTest {
     }
 
     @Test
-    public void testSetPrev(){
+    public void testSetPrev() {
         MyDLLNode<String> node = new MyDLLNode<>("Node");
         node.setPrev(new MyDLLNode<>("Prev"));
 
@@ -37,7 +38,7 @@ public class MyDLLNodeTest {
     }
 
     @Test
-    public void testSetNext(){
+    public void testSetNext() {
         MyDLLNode<String> node = new MyDLLNode<>("Node");
         node.setNext(new MyDLLNode<>("Next"));
 
@@ -50,7 +51,7 @@ public class MyDLLNodeTest {
     }
 
     @Test
-    public void testSetValue(){
+    public void testSetValue() {
         MyDLLNode<String> node = new MyDLLNode<>("Node");
 
         node.setValue("ExpectedValue");
@@ -64,7 +65,7 @@ public class MyDLLNodeTest {
     }
 
     @Test
-    public void testEqualsMyDLLNodes(){
+    public void testEqualsMyDLLNodes() {
         MyDLLNode<String> firstNode = new MyDLLNode<>("Node");
         MyDLLNode<String> secondNode = new MyDLLNode<>("Node");
 
@@ -72,7 +73,7 @@ public class MyDLLNodeTest {
     }
 
     @Test
-    public void testEqualsDifferentMyDLLNodesByPrevAndNextFields(){
+    public void testEqualsDifferentMyDLLNodesByPrevAndNextFields() {
         MyDLLNode<String> firstNode = new MyDLLNode<>("Node",
                 new MyDLLNode<>("Prev"),
                 new MyDLLNode<>("Next"));
@@ -81,20 +82,33 @@ public class MyDLLNodeTest {
         assertFalse(firstNode.equals(secondNode));
     }
     /*
-    * Согласно коду, вышеуказанные объекты равны, хотя их содержимое различно.
-    * Возможно, в данном случае следовало бы использовать не метод сравнения объектов,
-    * а компаратор по значению value.
-    * */
+     * Согласно коду, вышеуказанные объекты равны, хотя их содержимое различно.
+     * Возможно, в данном случае следовало бы использовать не метод сравнения объектов,
+     * а компаратор по значению value.
+     * */
 
-@Test
-    public void testValueMatch(){
-    MyDLLNode<String> node = new MyDLLNode<>("Value");
-    assertTrue(node.valueMatch("Value"));
-}
+    @DataProvider(name = "dataProvider")
+    public static Object[][] dataMethod(){
+        return new Object[][]{
+                {"One"},
+                {"Two"},
+                {"Three"}};
+    }
 
-    @Test
-    public void testValueMatchWithOtherValue(){
-        MyDLLNode<String> node = new MyDLLNode<>("Value");
+    @Test (dataProvider = "dataProvider")
+    public void testValueMatch(String value) {
+        MyDLLNode<String> node = new MyDLLNode<>(value);
+        assertTrue(node.valueMatch(value));
+    }
+
+    @DataProvider(name = "provider")
+    public static Object[][] getValue(){
+        return new Object[][]{{"Four"}, {"Five"}, {"Six"}};
+    }
+
+    @Test (dataProvider = "provider")
+    public void testValueMatchWithOtherValue(String value) {
+        MyDLLNode<String> node = new MyDLLNode<>(value);
         assertFalse(node.valueMatch("Other Value"));
     }
 
