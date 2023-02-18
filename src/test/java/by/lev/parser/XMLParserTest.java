@@ -2,11 +2,23 @@ package by.lev.parser;
 
 import org.testng.annotations.Test;
 import parser.XMLParser;
+import parser.XMLTag;
 
+import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class XMLParserTest {
+
+    @Test(
+            expectedExceptions = FileNotFoundException.class,
+            groups = "parser")
+    public void testXMLParserWithoutTrueFileRoot() {
+       new XMLParser("");
+    }
 
     @Test(groups = "parser")
     public void testTrueSimpleXmlFile() {
@@ -50,10 +62,29 @@ public class XMLParserTest {
         assertFalse(parser.getErrors().isEmpty());
     }
 
+    @Test(groups = "parser")
+    public void testGetNameFromRoot() {
+        XMLParser parser = new XMLParser("src/test/xmlfiles/true_simple_file.xml");
+        parser.parseDocument();
+        String xmlTageName;
+
+        try {
+            Field field = parser.getClass().getDeclaredField("root");
+            field.setAccessible(true);
+            XMLTag xmlTag = (XMLTag) field.get(parser);
+
+            xmlTageName = xmlTag.getName();
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(xmlTageName, "bookstore");
+    }
+
     /*
-    * Для дальнейшего тестирования требуется исправление обнаруженных ошибок.
-    * При данной работе приложения невозможно корректно проверить некоторые
-    * места в коде.
-    * */
+     * Для дальнейшего тестирования требуется исправление обнаруженных ошибок.
+     * При данной работе приложения невозможно корректно проверить некоторые
+     * места в коде.
+     * */
 
 }

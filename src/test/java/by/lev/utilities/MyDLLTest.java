@@ -276,9 +276,4 @@ public class MyDLLTest {
 
         list.set(3, "Four");
     }
-
-
-
 }
-
-

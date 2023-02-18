@@ -1,0 +1,68 @@
+I. src/main/java/parser/XMLParser.java
+
+При создании объекта XMLParser, при неправильно указанном пути к файлу ожидается
+FileNotFoundException, но приходит NullPointerException.
+(testXMLParserWithoutTrueFileRoot())
+S2 - ошибка нарушает логику программы.
+
+При различных вариациях xml файлов с правильной структурой выпадают ошибки:
+классическая структура - testTrueSimpleXmlFile
+структура с самозакрывающимся тегом - testSelfClosedTag
+тег с атрибутом - testTagWithAtribute
+закомментированный блок - testCommentLines
+файл с набором нескольких вышеуказанных случаев - testDifficultFile
+Однако, случай когда в файле отсутствует декларация - считается валидным  -
+testWithoutDeclarationFile
+testGetNameFromRoot показывает, что имя первого тега ошибочно.
+Все эти тесты: S3 - ошибки мешают приложению выполнить свои основные функции.
+
+II. src/main/java/utilities/MyArrayList.java
+
+Выявлена ошибка при добавлени элемента по индексу в случае, когда у MyArrayList
+объявлено capacity. - testMyArrayListAddToIndexWithCapacity
+Если программой предусмотрено, что после объявления параметра capacity
+список MyArrayList не должен расширяться, то стоит обратить внимание на тест
+testMyArrayListWithCapacity, где после объявления capacity список расширяется.
+S2.
+
+III. src/main/java/utilities/MyDLLNode.java
+
+В данном классе метод equals() работает некорректно, т.к. сравнивает объекты
+только по значению value. Возможно, это ошибочно, т.к. подобный метод обычно
+относят к компараторам. Но не исключено, что так и должно быть.
+testEqualsDifferentMyDLLNodesByPrevAndNextFields
+S1.
+
+IV. src/main/java/utilities/MyDLL.java
+
+Метод remove не удаляет из списка указанный элемент непосредственно по элементу:
+testRemoveByElementGetArrayWithoutTheElement
+testRemoveByElementGetActualSize
+(Но удаляет по индексу - testRemoveByIndex)
+S1
+
+Метод add не позволяет добавить элемент по индексу 0. - testAddByZeroIndex
+S2.
+
+Метод add не верно реагирует на добавление элемента по индексу в случае указания
+отрицательного числа индекса - testAddByNegativeIndex
+S2.
+
+V. src/main/java/utilities/MyQueue.java
+
+Очередь не может быть полной - метод isFull() всегда возвращает false, при том, что
+мы не можем указать capacity очереди (не предусмотрено реализацией в данном случае)
+Следовательно, мы не можем на практическом примере проверить
+throw new RuntimeException("Queue is full");
+из метода src/main/java/utilities/MyQueue.java enqueue()
+S1
+
+Проверить работу метода toArray(E[] holder) в полной мере не возможно в данном
+случае, т.к. метод ссылается на приватное поле elements.
+
+VI. src/test/java/by/lev/utilities/MyStackTest.java
+
+Метод toArray(E[] holder) невозможно полностью проверить,
+т.к. поле elements приватное.
+
+Метод contains невозможно полностью проверить, т.к. поле elements приватное.

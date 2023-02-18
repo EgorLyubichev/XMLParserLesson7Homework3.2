@@ -111,6 +111,4 @@ public class MyDLLNodeTest {
         MyDLLNode<String> node = new MyDLLNode<>(value);
         assertFalse(node.valueMatch("Other Value"));
     }
-
-
 }
