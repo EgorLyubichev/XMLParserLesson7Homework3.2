@@ -1,4 +1,4 @@
-package by.lev;
+package by.lev.utilities;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

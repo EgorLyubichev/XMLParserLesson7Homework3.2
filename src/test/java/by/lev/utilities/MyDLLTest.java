@@ -1,4 +1,4 @@
-package by.lev;
+package by.lev.utilities;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

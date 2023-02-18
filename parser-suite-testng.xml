@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Parser Suite" verbose="1" >
+    <test name="test for parser">
+        <groups>
+            <run>
+                <include name="parser"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="by.lev.parser.XMLTagTest"/>
+            <class name="by.lev.parser.XMLParserTest"/>
+        </classes>
+    </test>
+</suite>

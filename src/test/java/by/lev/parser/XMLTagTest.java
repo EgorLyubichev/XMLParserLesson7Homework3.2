@@ -1,4 +1,4 @@
-package by.lev;
+package by.lev.parser;
 
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -12,20 +12,20 @@ import static org.testng.Assert.assertTrue;
 
 public class XMLTagTest {
 
-    @Test
+    @Test(groups = "parser")
     public void testGetName() {
         XMLTag tag = new XMLTag("TagName");
         assertEquals(tag.getName(), "TagName");
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testSetName() {
         XMLTag tag = new XMLTag("TagName");
         tag.setName("NewTagName");
         assertEquals(tag.getName(), "NewTagName");
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testTagPropertyConstructor() {
         XMLTag.TagProperty property =
                 new XMLTag.TagProperty("Name", "Value");
@@ -36,7 +36,7 @@ public class XMLTagTest {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testTagPropertySetName() {
         XMLTag.TagProperty property =
                 new XMLTag.TagProperty("Name", "Value");
@@ -45,21 +45,21 @@ public class XMLTagTest {
         assertEquals(property.getName(), "NewName");
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testTagPropertySetValue() {
         XMLTag.TagProperty property = new XMLTag.TagProperty("Name", "Value");
         property.setValue("NewValue");
         assertEquals(property.getValue(), "NewValue");
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testGetEmptyMyArrayListAsProperties() {
         XMLTag tag = new XMLTag("Tag");
         ListADT<XMLTag.TagProperty> properties = tag.getProperties();
         assertTrue(properties.isEmpty());
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testSetAndGetProperties() {
         XMLTag.TagProperty FirstProperty =
                 new XMLTag.TagProperty("Name", "Value");
@@ -78,14 +78,14 @@ public class XMLTagTest {
         assertEquals(tag.getProperties(), propertyListADT);
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testGetEmptyMyArrayListAsNestedTags() {
         XMLTag tag = new XMLTag("Tag");
         ListADT<XMLTag> nestedTags = tag.getNestedTags();
         assertTrue(nestedTags.isEmpty());
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testSetNestedTags() {
         XMLTag tag = new XMLTag("Tag");
         ListADT<XMLTag> nestedTags = new MyArrayList<>();
@@ -98,13 +98,13 @@ public class XMLTagTest {
         assertEquals(tag.getNestedTags(), nestedTags);
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testGetText(){
         XMLTag tag = new XMLTag("Tag");
         assertNull(tag.getText());
     }
 
-    @Test
+    @Test(groups = "parser")
     public void testSetText(){
         XMLTag tag = new XMLTag("Tag");
         tag.setText("Text");

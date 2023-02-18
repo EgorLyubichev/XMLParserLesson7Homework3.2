@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="CommonSuite" verbose="1" >
+    <test name="test for all" >
+        <classes>
+            <class name="by.lev.parser.XMLParserTest" />
+            <class name="by.lev.parser.XMLTagTest" />
+            <class name="by.lev.utilities.MyArrayListTest" />
+            <class name="by.lev.utilities.MyDLLNodeTest" />
+            <class name="by.lev.utilities.MyDLLTest" />
+            <class name="by.lev.utilities.MyQueueTest" />
+            <class name="by.lev.utilities.MyStackTest" />
+        </classes>
+    </test>
+</suite>

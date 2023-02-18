@@ -1,4 +1,4 @@
-package by.lev;
+package by.lev.utilities;
 
 import exceptions.EmptyQueueException;
 import org.testng.annotations.Test;
